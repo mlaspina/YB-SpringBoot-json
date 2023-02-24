@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS mygrocerylistjson (
 
 # Build and Run
 
-Build the somple app (written using Spring code) as follows:
+Build the sample app (written using Spring code) as follows:
 
 ```
 $ mvn -DskipTests package
