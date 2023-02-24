@@ -4,7 +4,11 @@ This project is the sample MongoDB Spring app from https://www.mongodb.com/compa
 
 Deploy a YB cluster and execute the following SQL to create the DB and tables:
 
-```CREATE database grocery
+```
+CREATE database grocery;
+
+\c grocery
+
 
 CREATE TABLE IF NOT EXISTS mygrocerylist (
     id text not null,
