@@ -1,15 +1,37 @@
-# Build and run
+This project is the sample MongoDB Spring app from https://www.mongodb.com/compatibility/spring-boot converted to use and ID and a JSONB column in Yugabyte YSQL.  Feel free to compare to the MongoDB version.
 
-Build the REST API server (written using Spring code) as follows:
+# Setup
+
+Deploy a YB cluster and execute the following SQL to create the DB and tables:
+
+```CREATE database grocery
+
+CREATE TABLE IF NOT EXISTS mygrocerylist (
+    id text not null,
+    name text,
+    quantity int,
+    category text,
+    PRIMARY KEY (id));
+
+CREATE TABLE IF NOT EXISTS mygrocerylistjson (
+    id text not null,
+    details jsonb,
+    PRIMARY KEY (id));
+```
+
+
+# Build and Run
+
+Build the somple app (written using Spring code) as follows:
 
 ```
 $ mvn -DskipTests package
 ```
 
-Run the REST API server:
+Run the application:
 
 ```
-$ mvn spring-boot:run
+$ java -jar yugabyte-spring-0.0.1-SNAPSHOT.jar (in ./target folder of project)
 ```
 
 **NOTE:** If you need to clean and rebuild the project, run the folowing command before rebuilding.
@@ -19,8 +41,6 @@ $ mvn clean
 ```
 
 
-The REST server will run here: [`http://localhost:8080`](http://localhost:8080)
-
 # Customizing
 
 There are a number of options that can be customized in the properties file located here:
@@ -28,8 +48,8 @@ There are a number of options that can be customized in the properties file loca
 
 | Properties    | Description   | Default |
 | ------------- | ------------- | ------- |
-| `spring.datasource.url`  | The connection string. | `jdbc:postgresql://localhost:5433/postgres`  |
-| `server.port`  | The port on which the REST API server should listen. | 8080 |
-| `spring.datasource.username` | The username to connect to the database. | `postgres` |
-| `spring.datasource.password` | The password to connect to the database. Leave blank for the password. | - |
+| `spring.datasource.platform` | The DB Platform | Leave as `postgres` |
+| `spring.datasource.url`  | The connection string. | For the `grocery` DB, use `jdbc:postgresql://localhost:5433/grocery`  |
+| `spring.datasource.username` | The username to connect to the database. | `yugabyte` |
+| `spring.datasource.password` | The password to connect to the database. Leave blank for no password. | - |
 
